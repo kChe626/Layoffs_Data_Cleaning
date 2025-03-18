@@ -1,57 +1,60 @@
-## Overview
-This project aims to analyze and visualize the sales data for Retail and Food Services in the U.S.A. The data is sourced from the U.S. government website and has been processed using SQL to create a database for easy management and analysis. The main focus of this project is to explore the sales data based on NAICS (North American Industry Classification System) code and category.
+## Dataset Description
+This dataset tracks workforce reductions across companies globally from 2020 to 2023, capturing trends during the COVID-19 pandemic and post-pandemic recovery phases. It includes the following columns:
 
-## [Reports](https://github.com/tushar2704/Sales-for-Retail-and-Food-Services/tree/main/reports)
+    Company: Name of the organization.
 
---------
+    Location: City/region of the company's headquarters.
 
+    Industry: Sector or field of operation (e.g., tech, healthcare, retail).
 
+    total_laid_off: Absolute number of employees laid off.
 
+    percentage_laid_off: Proportion of the workforce affected (%).
 
-## Dataset
-The dataset used in this project contains historical sales data for Retail and Food Services in the U.S.A. The data has been collected from the U.S. government website, which ensures its authenticity and reliability. The dataset includes information such as NAICS code, category, sales figures, geographical regions, and time period (e.g., monthly or yearly).
+    date: Month/year of the layoff event.
 
-## Database
-To facilitate data management and analysis, a SQL database has been created to store the dataset. SQL provides a robust and efficient way to query and manipulate the data. The database schema has been designed to ensure proper organization and ease of use. The structure of the database enables seamless integration with various data visualization tools.
+    stage: Company maturity stage (e.g., Seed, Series A, IPO).
 
-## Data Processing
-The data obtained from the U.S. government website might require some preprocessing to clean and transform it into a suitable format for analysis. SQL queries have been utilized to clean, filter, and transform the data as necessary. This ensures that the data used for the dashboard is accurate and reliable.
-![NAICS](https://github.com/tushar2704/Sales-for-Retail-and-Food-Services/assets/66141195/c897f5c5-e4ce-446f-8944-c0c0376fcee9)
+    country: Country of operation.
 
-
-
-## Project includes:
-
-**Overview:** A summary of key performance indicators, such as total sales, top-performing categories, and regional distribution of sales.
-
-**Sales by NAICS Code:** Visual representations of sales figures for various NAICS codes, allowing users to identify the most significant contributors to overall sales.
-
-**Sales by Category:** Graphs and charts illustrating sales for different categories within Retail and Food Services.
-
-**Geographical Analysis:** Maps and charts showing sales distribution across different regions of the U.S.A.
-
-**Time Series Analysis:** Trends and seasonal patterns in sales data, helping users to identify patterns over time.
-
-**Filtering and Interactivity:** Interactive elements allowing users to filter data based on specific criteria and perform ad-hoc analysis.
-
-## Technologies Used
-**SQL:** For data extraction, transformation, and loading into the database.
-
-**Database Management System:** PostgreSQL to host and manage the dataset.
+    funds_raised_millions: Capital raised by the company (in USD millions).
 
 
-**Programming Languages:**  SQL for data processing and scripting.
+## Data Cleaning Process
 
+This project involved cleaning and standardizing a dataset tracking global workforce layoffs (2020–2023). Below are the key steps performed using MySQL:
 
+1. Removing Duplicates
 
-**Conclusion**
-The Sales for Retail and Food Services in U.S.A. project provides a comprehensive analysis of sales data within the Retail and Food Services sectors. The use of SQL and data from the U.S. government website ensures data accuracy and reliability. The interactive dashboard offers a user-friendly interface to explore the data visually and gain valuable insights. This project is valuable for businesses, policymakers, and researchers looking to understand and leverage sales trends in the U.S.A.
+    Staging Tables: Created layoffs_staging and layoffs_staging2 to preserve raw data integrity.
 
-## Author
-- <ins><b>©2023 Tushar Aggarwal. All rights reserved</b></ins>
-- <b>[LinkedIn](https://www.linkedin.com/in/tusharaggarwalinseec/)</b>
-- <b>[Medium](https://medium.com/@tushar_aggarwal)</b> 
-- <b>[Tushar-Aggarwal.com](https://www.tushar-aggarwal.com/)</b>
-- <b>[New Kaggle](https://www.kaggle.com/tagg27)</b> 
+    CTEs & Window Functions: Identified duplicates using ROW_NUMBER() partitioned by all columns (company, location, industry, etc.).
 
+    Deletion: Removed duplicate records where row_num > 1, ensuring unique entries.
 
+2. Standardizing Data
+
+    Trimming Whitespace: Standardized company names with TRIM().
+
+    Industry Consolidation: Grouped variants like "Crypto Currency" and "Crypto" into a single category ("Crypto").
+
+    Country Formatting: Fixed trailing punctuation (e.g., "United States." → "United States").
+
+    Date Conversion: Transformed text-based date into a DATE type using STR_TO_DATE('%m/%d/%Y').
+
+3. Handling Nulls & Blanks
+
+    Industry Imputation: Used a self-join to populate missing industry values for companies with existing entries (e.g., filling Airbnb’s industry from non-null records).
+
+    Null Filtering: Removed rows where both total_laid_off and percentage_laid_off were NULL, as they provided no actionable insights.
+
+4. Column Cleanup
+
+    Deprecated Columns: Dropped the temporary row_num column after deduplication.
+
+**SQL Techniques Used:** CTEs, Window Functions (ROW_NUMBER()), String Manipulation (TRIM(), LIKE), Self-Joins, Date Conversion (STR_TO_DATE).
+
+## Outcome
+
+The cleaned dataset is now analysis-ready, with: No duplicates or inconsistent entries. Standardized categories and temporal data. Improved completeness (imputed missing industries). Valid, query-friendly data types (e.g., dates).
+This workflow ensures reliable insights into layoff trends, company stages, and geographic impacts.
