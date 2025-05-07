@@ -45,6 +45,32 @@ This dataset tracks workforce reductions across global companies between 2020 an
 - **Funds Raised (M)** – Capital raised in millions (USD)
 
 ---
+### 🔄 Data Cleaning Workflow 
+
+```
+[Start: Raw Layoffs Data]  
+        ↓  
+[Create Staging Table]  
+        ↓  
+[Detect Duplicates with ROW_NUMBER()]  
+        ↓  
+[Remove Duplicate Records]  
+        ↓  
+[Standardize Text Fields]  
+(e.g., TRIM company, unify "Crypto")  
+        ↓  
+[Convert Date Format]  
+(STR_TO_DATE → DATE)  
+        ↓  
+[Handle NULL & Blank Fields]  
+(fill or filter out)  
+        ↓  
+[Drop Helper Columns]  
+(e.g., row_num)  
+        ↓  
+[Cleaned Dataset Ready for Analysis]  
+```
+---
 
 ## 🧹 Data Cleaning Process (MySQL)
 
@@ -72,6 +98,8 @@ This project focused on preparing a reliable, analysis-ready version of the data
 > CTEs, Window Functions (`ROW_NUMBER()`), `TRIM()`, `LIKE`, `STR_TO_DATE()`, `SELF JOIN`
 
 ---
+
+
 
 ## 📊 Final Outcome
 
