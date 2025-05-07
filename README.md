@@ -45,30 +45,23 @@ This dataset tracks workforce reductions across global companies between 2020 an
 - **Funds Raised (M)** – Capital raised in millions (USD)
 
 ---
-### 🔄 Data Cleaning Workflow 
+### 🔄 Layoffs Data Cleaning Workflow
 
-```
-[Start: Raw Layoffs Data]  
-        ↓  
-[Create Staging Table]  
-        ↓  
-[Detect Duplicates with ROW_NUMBER()]  
-        ↓  
-[Remove Duplicate Records]  
-        ↓  
-[Standardize Text Fields]  
-(e.g., TRIM company, unify "Crypto")  
-        ↓  
-[Convert Date Format]  
-(STR_TO_DATE → DATE)  
-        ↓  
-[Handle NULL & Blank Fields]  
-(fill or filter out)  
-        ↓  
-[Drop Helper Columns]  
-(e.g., row_num)  
-        ↓  
-[Cleaned Dataset Ready for Analysis]  
+```mermaid
+flowchart TD
+  A[Raw Layoffs Data] --> B[Create Staging Tables]
+  B --> C[Identify Duplicates]
+  C --> D[Remove Duplicates]
+  D --> E[Standardize Text Fields]
+  E --> E1[Trim Whitespace]
+  E --> E2[Fix Industry Names]
+  E --> E3[Clean Country Values]
+  E --> F[Convert Date Format]
+  F --> G[Handle Null and Missing Values]
+  G --> G1[Impute Industry with Self Join]
+  G --> G2[Remove Empty Records]
+  G --> H[Drop Helper Columns]
+  H --> I[Analysis-Ready Dataset]
 ```
 ---
 
