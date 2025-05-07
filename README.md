@@ -1,61 +1,53 @@
-## Dataset Description
-This dataset tracks workforce reductions across companies globally from 2020 to 2023, capturing trends during the COVID-19 pandemic and post-pandemic recovery phases. It includes the following columns:
+## 📉 Project: Global Workforce Layoffs (2020–2023)
 
-    Company: Name of the organization.
+### 🗂️ Dataset Overview
+This dataset tracks workforce reductions across global companies between 2020 and 2023, capturing trends during the COVID-19 pandemic and post-pandemic recovery. Key fields include:
 
-    Location: City/region of the company's headquarters.
+- **Company** – Organization name
+- **Location** – City/region of headquarters
+- **Industry** – Sector (e.g., Tech, Retail, Healthcare)
+- **Total Laid Off** – Number of employees impacted
+- **% Laid Off** – Proportion of total workforce affected
+- **Date** – Layoff date (month/year)
+- **Stage** – Company maturity (Seed, Series A, IPO, etc.)
+- **Country** – Country of operation
+- **Funds Raised (M)** – Capital raised in millions (USD)
 
-    Industry: Sector or field of operation (e.g., tech, healthcare, retail).
+---
 
-    total_laid_off: Absolute number of employees laid off.
+### 🧹 Data Cleaning Process (MySQL)
 
-    percentage_laid_off: Proportion of the workforce affected (%).
+This project focused on preparing a reliable, analysis-ready version of the dataset using structured SQL techniques. Key steps:
 
-    date: Month/year of the layoff event.
+#### ✅ 1. Duplicate Removal
+- Created staging tables (`layoffs_staging`, `layoffs_staging2`) to preserve raw data
+- Used `ROW_NUMBER()` over partitioned columns to identify duplicates
+- Removed records where `row_num > 1`
 
-    stage: Company maturity stage (e.g., Seed, Series A, IPO).
+#### ✅ 2. Standardization
+- **Company Names**: Removed whitespace using `TRIM()`
+- **Industries**: Consolidated similar entries (e.g., “Crypto” and “Crypto Currency” → “Crypto”)
+- **Countries**: Removed trailing punctuation (e.g., “United States.” → “United States”)
+- **Dates**: Converted text to `DATE` format using `STR_TO_DATE('%m/%d/%Y')`
 
-    country: Country of operation.
+#### ✅ 3. Handling Missing Values
+- **Industry Imputation**: Used a `SELF JOIN` to fill missing industries for companies with other non-null entries
+- **Null Filtering**: Removed records where both `total_laid_off` and `percentage_laid_off` were NULL
 
-    funds_raised_millions: Capital raised by the company (in USD millions).
+#### ✅ 4. Column Cleanup
+- Dropped helper fields like `row_num` after use
 
+> **SQL Skills Highlighted:**  
+> CTEs, Window Functions (`ROW_NUMBER()`), `TRIM()`, `LIKE`, `STR_TO_DATE()`, `SELF JOIN`
 
-## Data Cleaning Process
+---
 
-This project involved cleaning and standardizing a dataset tracking global workforce layoffs (2020–2023). Below are the key steps performed using MySQL:
+### 📊 Final Outcome
+The cleaned dataset is now ready for analysis and visualization, with:
+- No duplicate or empty rows
+- Standardized categories (industries, countries, stages)
+- Valid and queryable date formats
+- Improved completeness with imputed fields
 
-1. Removing Duplicates
-
-    Staging Tables: Created layoffs_staging and layoffs_staging2 to preserve raw data integrity.
-
-    CTEs & Window Functions: Identified duplicates using ROW_NUMBER() partitioned by all columns (company, location, industry, etc.).
-
-    Deletion: Removed duplicate records where row_num > 1, ensuring unique entries.
-
-2. Standardizing Data
-
-    Trimming Whitespace: Standardized company names with TRIM().
-
-    Industry Consolidation: Grouped variants like "Crypto Currency" and "Crypto" into a single category ("Crypto").
-
-    Country Formatting: Fixed trailing punctuation (e.g., "United States." → "United States").
-
-    Date Conversion: Transformed text-based date into a DATE type using STR_TO_DATE('%m/%d/%Y').
-
-3. Handling Nulls & Blanks
-
-    Industry Imputation: Used a self-join to populate missing industry values for companies with existing entries (e.g., filling Airbnb’s industry from non-null records).
-
-    Null Filtering: Removed rows where both total_laid_off and percentage_laid_off were NULL, as they provided no actionable insights.
-
-4. Column Cleanup
-
-    Deprecated Columns: Dropped the temporary row_num column after deduplication.
-
-**SQL Techniques Used:** CTEs, Window Functions (ROW_NUMBER()), String Manipulation (TRIM(), LIKE), Self-Joins, Date Conversion (STR_TO_DATE).
-
-## Outcome
-
-The cleaned dataset is now analysis-ready, with: No duplicates or inconsistent entries. Standardized categories and temporal data. Improved completeness (imputed missing industries). Valid, query-friendly data types (e.g., dates).
-This workflow ensures reliable insights into layoff trends, company stages, and geographic impacts.
+> This cleaned dataset supports clear insights into layoff trends by geography, funding stage, and industry.
 
