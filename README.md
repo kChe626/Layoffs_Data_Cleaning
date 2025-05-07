@@ -1,4 +1,4 @@
-
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 # 🧼 SQL Data Cleaning Project: Global Layoffs Dataset
 
 > A real-world SQL data cleaning project using MySQL to prepare workforce layoff data for analysis, featuring staging layers, deduplication, standardization, and NULL handling.
