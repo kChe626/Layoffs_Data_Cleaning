@@ -1,11 +1,11 @@
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-# 🧼 SQL Data Cleaning Project: Global Layoffs Dataset
+#  SQL Data Cleaning Project: Global Layoffs Dataset
 
 > A real-world SQL data cleaning project using MySQL to prepare workforce layoff data for analysis, featuring staging layers, deduplication, standardization, and NULL handling.
 
 ---
 
-## 🛠️ Key Tasks & SQL Techniques Used
+## Key Tasks & SQL Techniques Used
 
 | Task                         | SQL Techniques & Functions                                |
 |-----------------------------|------------------------------------------------------------|
@@ -19,7 +19,7 @@
 
 ---
 
-## 💡 What Was Cleaned
+##  What Was Cleaned
 
 - ✅ Duplicate entries removed using `ROW_NUMBER()`
 - ✅ Inconsistent text (e.g., extra spaces, casing) cleaned
@@ -30,7 +30,7 @@
 
 ---
 
-## 🗂️ Dataset Overview
+##  Dataset Overview
 
 This dataset tracks workforce reductions across global companies between 2020 and 2023, capturing trends during the COVID-19 pandemic and post-pandemic recovery. Key fields include:
 
@@ -45,7 +45,7 @@ This dataset tracks workforce reductions across global companies between 2020 an
 - **Funds Raised (M)** – Capital raised in millions (USD)
 
 ---
-### 🔄 Layoffs Data Cleaning Workflow
+### Layoffs Data Cleaning Workflow
 
 ```mermaid
 flowchart TD
@@ -65,26 +65,26 @@ flowchart TD
 ```
 ---
 
-## 🧹 Data Cleaning Process (MySQL)
+##  Data Cleaning Process (MySQL)
 
 This project focused on preparing a reliable, analysis-ready version of the dataset using structured SQL techniques. Key steps:
 
-### ✅ 1. Duplicate Removal
+###  1. Duplicate Removal
 - Created staging tables (`layoffs_staging`, `layoffs_staging2`) to preserve raw data
 - Used `ROW_NUMBER()` over partitioned columns to identify duplicates
 - Removed records where `row_num > 1`
 
-### ✅ 2. Standardization
+###  2. Standardization
 - **Company Names**: Removed whitespace using `TRIM()`
 - **Industries**: Consolidated similar entries (e.g., “Crypto” and “Crypto Currency” → “Crypto”)
 - **Countries**: Removed trailing punctuation (e.g., “United States.” → “United States”)
 - **Dates**: Converted text to `DATE` format using `STR_TO_DATE('%m/%d/%Y')`
 
-### ✅ 3. Handling Missing Values
+###  3. Handling Missing Values
 - **Industry Imputation**: Used a `SELF JOIN` to fill missing industries for companies with other non-null entries
 - **Null Filtering**: Removed records where both `total_laid_off` and `percentage_laid_off` were NULL
 
-### ✅ 4. Column Cleanup
+###  4. Column Cleanup
 - Dropped helper fields like `row_num` after use
 
 > **SQL Skills Highlighted:**  
@@ -94,7 +94,7 @@ This project focused on preparing a reliable, analysis-ready version of the data
 
 
 
-## 📊 Final Outcome
+##  Final Outcome
 
 The cleaned dataset is now ready for analysis and visualization, with:
 - No duplicate or empty rows
