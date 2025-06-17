@@ -45,25 +45,7 @@ This dataset tracks workforce reductions across global companies between 2020 an
 - **Funds Raised (M)** – Capital raised in millions (USD)
 
 ---
-### Layoffs Data Cleaning Workflow
 
-```mermaid
-flowchart TD
-  A[Raw Layoffs Data] --> B[Create Staging Tables]
-  B --> C[Identify Duplicates]
-  C --> D[Remove Duplicates]
-  D --> E[Standardize Text Fields]
-  E --> E1[Trim Whitespace]
-  E --> E2[Fix Industry Names]
-  E --> E3[Clean Country Values]
-  E --> F[Convert Date Format]
-  F --> G[Handle Null and Missing Values]
-  G --> G1[Impute Industry with Self Join]
-  G --> G2[Remove Empty Records]
-  G --> H[Drop Helper Columns]
-  H --> I[Analysis-Ready Dataset]
-```
----
 
 ##  Data Cleaning Process (MySQL)
 
