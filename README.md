@@ -116,9 +116,6 @@ WHERE total_laid_off IS NULL
 ---
 ## Files
 [Layoffs Dataset — Raw data](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv)
+
 [Layoffs_Data_Cleaning_script — SQL code for cleaning](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_script_SQL.sql)
 
-
-
-
-[Download the full SQL cleaning script](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_script_SQL.sql)
