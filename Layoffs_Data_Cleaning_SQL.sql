@@ -1,3 +1,6 @@
+-- Layoffs Data Cleaning SQL Script
+-- Description: Cleans and prepares layoffs dataset by standardizing fields, deduplicating rows, and handling missing data
+
 --- Create and populate the initial staging table
 CREATE TABLE layoffs_staging LIKE layoffs;
 
@@ -5,14 +8,14 @@ INSERT INTO layoffs_staging
 SELECT * 
 FROM layoffs;
 
---- Pre-clean text columns for better deduplication
+--- Standardize text columns: lowercase, trim spaces, remove punctuation
 UPDATE layoffs_staging 
 SET company = LOWER(TRIM(company)),
     location = LOWER(TRIM(location)),
     industry = LOWER(TRIM(industry)),
     country = LOWER(TRIM(TRAILING '.' FROM country));
 
---- Identify duplicates
+--- Identify duplicates using ROW_NUMBER over key fields
 WITH duplicate_cte AS (
     SELECT *,
            ROW_NUMBER() OVER (
@@ -58,7 +61,7 @@ WHERE row_num > 1;
 DELETE FROM layoffs_staging2 
 WHERE row_num > 1;
 
---- Create index on company for faster join updates
+--- Create index to speed up joins for filling industry
 CREATE INDEX idx_company ON layoffs_staging2 (company(100));
 
 --- Further standardization
