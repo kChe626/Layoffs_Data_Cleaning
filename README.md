@@ -61,11 +61,11 @@ SELECT * FROM layoffs_staging2 LIMIT 5;
 - Original rows: Refer to layoffs(1).csv
 - Cleaned rows: Run SELECT COUNT(*) FROM layoffs_staging2;
 - Duplicates removed, dates standardized, and missing data addressed.
-- [Download cleaned CSV](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv) — Contains the fully cleaned dataset for easy review.
+- [Download cleaned CSV](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs_cleaned.csv) — Contains the fully cleaned dataset for easy review.
 
 ---
 ## Files
 [Layoffs Dataset — Raw data](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv)
-
 [Layoffs_Data_Cleaning_script — SQL code for cleaning](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_SQL.sql)
+[Layoffs_Cleaned_Dataset - Cleaned dataset after SQL](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs_cleaned.csv)
 
