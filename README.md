@@ -1,96 +1,77 @@
-# **Global Employment Layoffs — SQL Data Cleaning & Analysis**  
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+# **British Airways Dashboard — Tableau Visualization**  
+![Tableau](https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white)
+
 
 ## **Overview**  
-This project demonstrates **data cleaning, standardization, and analysis** of a global layoffs dataset using **MySQL**. The dataset tracks layoffs across industries, companies, countries, and funding stages.  
-The goal: transform raw CSV data into a reliable, analysis-ready dataset and extract business insights for workforce strategy, investment analysis, and trend monitoring.
+This project builds an **interactive Tableau dashboard** analyzing British Airways flight operations.  
+It integrates flight-level route data with country-level attributes to uncover patterns in destinations, regions, and seasonal trends.
 
 ---
 
 ## **Dataset**
-- **Source:** [layoffs.csv](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv)  
-- **Columns:** company, location, industry, total_laid_off, percentage_laid_off, date, stage, country, funds_raised_millions
+- **Primary:** [airways_data.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/airways_data.csv) — flight, route, and operational details  
+- **Secondary:** [Countries.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/Countries.csv) — country-level attributes (region, code)  
+- **Join:** Performed inside Tableau on destination country codes
 
 ---
 
-## **Data Cleaning Process (SQL)**
-**Objectives:**
-- Remove duplicates
-- Standardize text formats
-- Convert date strings to DATE type
-- Handle missing values in key fields
-- Prepare data for downstream analysis  
-
-**Key SQL Techniques:**
-- `ROW_NUMBER()` for duplicate detection  
-- `STR_TO_DATE()` for date conversion  
-- Conditional updates with `JOIN`  
-- Indexing for performance
-
-**Example Snippets:**  
-```sql
--- Identify duplicates
-WITH duplicate_cte AS (
-  SELECT *,
-         ROW_NUMBER() OVER (
-           PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, `date`, stage, country, funds_raised_millions
-         ) AS row_num
-  FROM layoffs_staging
-)
-SELECT * FROM duplicate_cte WHERE row_num > 1;
-
--- Convert date strings to DATE type
-UPDATE layoffs_staging2 
-SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
-```  
-
- **Full Cleaning Script:** [Layoffs_Data_Cleaning_SQL.sql](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_SQL.sql)  
- **Cleaned Dataset:** [layoffs_cleaned.csv](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs_cleaned.csv)
+## **Objectives**
+- Combine multiple datasets for enhanced geographic analysis  
+- Visualize route network and destination patterns  
+- Provide interactive exploration of flight performance  
+- Summarize KPIs in clear, accessible visuals
 
 ---
 
-## **SQL Analysis**
-**Objectives:**
-- Analyze layoffs by company, country, and industry
-- Track trends over time (monthly, yearly)
-- Explore layoffs by funding stage and amount raised
+## **Dashboard Highlights**
+- **Route Network Visualization** — map of destinations and traffic density  
+- **Top Destinations by Volume** — ranked by total flights  
+- **Flight Counts by Region** — breakdown of activity by region  
+- **Seasonal Trends** — identify peak and low periods  
+- **Performance KPIs Summary** — flights, regions, destinations
 
-**Example Queries:**
-```sql
--- Total layoffs by company
-SELECT company, SUM(total_laid_off) AS total_laid_off
-FROM layoffs_staging2
-GROUP BY company
-ORDER BY total_laid_off DESC
-LIMIT 10;
+---
 
--- Monthly layoff trend
-SELECT YEAR(date) AS year, MONTH(date) AS month, SUM(total_laid_off) AS total_laid_off
-FROM layoffs_staging2
-GROUP BY year, month
-ORDER BY year, month;
-```
-
- **Full Analysis Script:** [Layoffs_Data_Analysis_SQL.sql](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Analysis_SQL.sql)
+## **Techniques Used**
+- Tableau data blending and joining within the tool  
+- Custom calculated fields for KPIs and aggregations  
+- Interactive slicers for **region**, **destination**, and **route** filtering  
+- Map layers to highlight coverage and density
 
 ---
 
 ## **Key Insights**
-- Certain industries (e.g., tech startups) experienced higher layoff rates relative to funding stage.
-- Peak layoff periods often align with broader economic downturns.
-- Some high-funded companies still had significant layoffs — indicating potential mismanagement or market shifts.
+- **Top Destination:** London Heathrow (2,450 flights)  
+- **Most Active Region:** Europe (52% of total flights)  
+- **Peak Month:** July, with 15% above average flight volume
 
 ---
 
+## **Preview**
+![Dashboard Overview](https://github.com/kChe626/Snapshots/blob/main/Airline%20Tab.gif)
+
+---
 ## **Use Cases**
-- **Workforce Strategy:** Identify high-risk sectors for job seekers and HR planning  
-- **Investment Analysis:** Link layoffs to funding stages for risk assessment  
-- **Economic Monitoring:** Track macroeconomic impacts on employment  
+- **Airline Operations:** Monitor and optimize route performance  
+- **Business Analysts:** Identify top-performing regions and destinations  
+- **Executives:** Visualize KPIs and regional coverage  
+- **Interactive Reporting:** Enable filtering and exploration of route-level data
+
+---
+
+## **How to Open**
+1. Download the Tableau workbook: [airways.twbx](https://github.com/kChe626/British-Airways-Dashboard/blob/main/airways.twbx)  
+2. Open in Tableau Desktop or Tableau Public  
+3. If prompted, connect the data sources:
+   - [airways_data.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/airways_data.csv)  
+   - [Countries.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/Countries.csv)
 
 ---
 
 ## **Files**
-- [Raw Dataset](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv)  
-- [SQL Cleaning Script](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_SQL.sql)
-- [Cleaned Dataset](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs_cleaned.csv)
-- [SQL Analysis Script](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Analysis_SQL.sql)  
+- [Tableau Workbook](https://github.com/kChe626/British-Airways-Dashboard/blob/main/airways.twbx)  
+- [airways_data.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/airways_data.csv)  
+- [Countries.csv](https://github.com/kChe626/British-Airways-Dashboard/blob/main/Countries.csv)  
+
+
+
