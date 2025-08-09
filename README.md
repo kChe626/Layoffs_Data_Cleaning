@@ -91,6 +91,12 @@ ORDER BY year, month;
 
 ---
 
+## **Business Relevance**
+
+This dataset cleaning and analysis process supports HR and operations teams in workforce planning by identifying high-risk sectors, tracking layoff trends over time, and flagging companies with recurring workforce reductions. These insights help optimize staffing strategies and inform location-based hiring or downsizing decisions.
+
+---
+
 ## **Files**
 - [Raw Dataset](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/layoffs.csv)  
 - [SQL Cleaning Script](https://github.com/kChe626/Layoffs_Data_Cleaning/blob/main/Layoffs_Data_Cleaning_SQL.sql)
